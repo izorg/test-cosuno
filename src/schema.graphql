@@ -1,0 +1,82 @@
+"""
+Company speciality
+"""
+enum Speciality {
+  ELECTRICAL
+  EXCAVATION
+  GEOLOGY
+  GEOPHYSICS
+  GEO_SCIENCE
+  HYDRO_GEOLOGY
+  METALLURGY
+  MINING
+  PLUMBING
+  SURVEYING
+  TRANSPORTATION
+  WATER
+  WASTE_MANAGEMENT
+}
+
+input CompanyFilter {
+  name: String
+  specialities: [Speciality!]
+}
+
+type Company {
+  city: String!
+  id: ID!
+  name: String!
+
+  """
+  List of company specialities
+  """
+  specialities: [Speciality!]!
+}
+
+type CompanyEdge {
+  cursor: ID!
+  node: Company!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+"""
+Using Cursor based pagination https://www.apollographql.com/docs/react/pagination/cursor-based/
+allow us to use build-in tooling from Apollo. Works perfect fo infinite scroll.
+"""
+type CompanyConnection {
+  edges: [CompanyEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Query {
+  """
+  List of companies with filter and cursor pagination
+  """
+  companies(
+    after: ID
+    filter: CompanyFilter
+    first: Int! = 20
+  ): CompanyConnection!
+}

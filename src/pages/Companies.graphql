@@ -1,0 +1,17 @@
+query Companies($after: ID, $filter: CompanyFilter) {
+  companies(after: $after, filter: $filter) {
+    edges {
+      cursor
+      node {
+        city
+        id
+        name
+        specialities
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

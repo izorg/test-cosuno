@@ -1,0 +1,41 @@
+schema: ./src/schema.graphql
+
+documents:
+  - src/pages/**/*.graphql
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+
+generates:
+  src/schema.generated.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      strictScalars: true
+      useTypeImports: true
+
+  src/apollo/helpers.generated.ts:
+    plugins:
+      - typescript-apollo-client-helpers
+    config:
+      requireKeyFields: true
+      useTypeImports: true
+
+  src:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: schema.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      avoidOptionals:
+        defaultValue: false
+        field: true
+        inputValue: false
+        object: false
+      maybeValue: T | null
+      strictScalars: true
+      useTypeImports: true

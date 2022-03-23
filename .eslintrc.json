@@ -1,0 +1,30 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "caseInsensitive": true,
+          "order": "asc"
+        },
+        "newlines-between": "always"
+      }
+    ],
+    "newline-before-return": "error",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "ignoreCase": true,
+        "reservedFirst": true
+      }
+    ],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
+    ]
+  }
+}
